@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lantern/src/app.dart';
 import 'package:lantern/src/memory_trick_repository.dart';
@@ -9,13 +11,16 @@ Future<TrickLibrary> pumpLantern(
   WidgetTester tester, {
   List<Trick>? tricks,
   String Function()? nextId,
+  Random? random,
 }) async {
   final seed = tricks ?? starterTricks;
   final library = TrickLibrary(
     repository: MemoryTrickRepository(seed),
     tricks: seed,
   );
-  await tester.pumpWidget(LanternApp(library: library, nextId: nextId));
+  await tester.pumpWidget(
+    LanternApp(library: library, nextId: nextId, random: random),
+  );
   await tester.pumpAndSettle();
   return library;
 }
