@@ -6,6 +6,8 @@ A fresh install starts with three tricks. Edit them or remove them.
 
 ![The shelf after a fresh install](docs/shelf.png)
 
+![Five cards on the felt. The named card is second from the left.](docs/table.png)
+
 ## Run
 
 ```bash
