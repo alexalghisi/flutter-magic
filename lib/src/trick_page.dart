@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'theme.dart';
 import 'trick.dart';
+import 'rehearsal_page.dart';
 
 class TrickPage extends StatefulWidget {
   const TrickPage({
@@ -112,6 +113,21 @@ class _TrickPageState extends State<TrickPage> {
     setState(() {});
   }
 
+  void _rehearse() {
+    final title = _title.text.trim();
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => RehearsalPage(
+          title: title.isEmpty ? 'Untitled' : title,
+          beats: [
+            for (final beat in _beats)
+              if (beat.text.trim().isNotEmpty) beat.text.trim(),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final fresh = widget.trick.title.isEmpty;
@@ -133,8 +149,13 @@ class _TrickPageState extends State<TrickPage> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              TextButton(
+                key: const Key('rehearse-trick'),
+                onPressed: _rehearse,
+                child: const Text('Rehearse'),
+              ),
+              const Spacer(),
               FilledButton(
                 key: const Key('save-trick'),
                 onPressed: _saving ? null : _save,
